@@ -19,6 +19,7 @@ app.post("/create",(req,res)=>{
     const country =req.body.country;
     const position=req.body.position;
     const salary=req.body.salary;
+    
 
     db.query(
         "INSERT INTO customers_info (name,age,country,position,salary) VALUES (?,?,?,?,?)",
@@ -33,7 +34,20 @@ app.post("/create",(req,res)=>{
     );
 });
 
+app.get("/employees",(req,res)=>{
+    const amount=20000;
+    const input1="*";
+    const operator=">";    
+    
+    db.query("SELECT "+input1+" FROM customers_info where salary "+operator + amount,(err,result)=>{
+        if(err){
+            console.log(err);
 
+        }else{
+            res.send(result);
+        }
+    })
+})
 
 
 app.listen(3001,()=>{
